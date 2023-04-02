@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Quiz q = new Quiz(0, 5, "03-29-2023");
         CountryDatabaseHelper countryHelper = new CountryDatabaseHelper(MainActivity.this);
+        try {
+            countryHelper.copyDataBase(MainActivity.this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         CountryDatabaseReader countryReader = new CountryDatabaseReader(MainActivity.this);
         try {
             ArrayList<Country> countryList = countryReader.execute().get();
