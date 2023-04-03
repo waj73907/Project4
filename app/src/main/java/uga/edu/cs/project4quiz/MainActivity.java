@@ -25,11 +25,9 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         CountryDatabaseReader countryReader = new CountryDatabaseReader(MainActivity.this);
-        Toast.makeText(MainActivity.this, countryReader.readAllCountries().get(0).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, countryReader.readAllCountries().get(0).getCountryName(), Toast.LENGTH_SHORT).show();
         try {
             ArrayList<Country> countryList = countryReader.execute().get();
-            String test = "not empty";
-            Toast.makeText(MainActivity.this,test, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
