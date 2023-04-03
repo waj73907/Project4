@@ -26,7 +26,7 @@ public class CountryDatabaseReader extends AsyncTask<Void, Void, ArrayList<Count
     public ArrayList<Country> readAllCountries() {
         ArrayList<Country> returnList = new ArrayList<>();
 
-        String queryString = "SELECT * FROM " + this.helper.COUNTRY_TABLE;
+        String queryString = "SELECT * FROM " + helper.COUNTRY_TABLE;
         SQLiteDatabase db = this.helper.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 
