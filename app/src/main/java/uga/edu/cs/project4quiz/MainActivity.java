@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         QuestionsHolder qh = new QuestionsHolder(MainActivity.this);
         qh.generateQuestions();
         Log.d("TEST", String.valueOf(qh.QuestionList.size()));

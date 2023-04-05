@@ -34,6 +34,7 @@ public class CountryDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void copyDataBase(Context context)  {
+        context.getDatabasePath("country_continent.db");
         String DB_NAME = "country_continent.db";
         String DB_PATH = "/data/data/uga.edu.cs.project4quiz/databases/";
         //Open your local db as the input stream
