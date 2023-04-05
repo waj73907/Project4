@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,11 @@ public class CountryDatabaseReader extends AsyncTask<Void, Void, ArrayList<Count
 
     public CountryDatabaseReader(Context c) {
         this.ct = c;
-        this.helper = new CountryDatabaseHelper(this.ct);
+        try {
+            this.helper = new CountryDatabaseHelper(this.ct);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

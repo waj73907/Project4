@@ -2,6 +2,12 @@ package uga.edu.cs.project4quiz;
 
 import java.time.LocalDate;
 
+/*
+NOTE: When making an instance of the quiz class, set the ID of the quiz to 0. The database
+will autoincrement it.
+
+
+ */
 public class Quiz {
     private int ID;
 
@@ -35,7 +41,7 @@ public class Quiz {
         return dateCompleted;
     }
 
-    public void setDateCompleted(LocalDate dateCompleted) {
+    public void setDateCompleted(String dateCompleted) {
         this.dateCompleted = dateCompleted.toString();
     }
 

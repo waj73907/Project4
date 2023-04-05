@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
 import java.nio.channels.AsynchronousChannelGroup;
+import java.time.LocalDate;
+/*
 
+ */
 public class QuizDatabaseWriter extends AsyncTask<Quiz, Void, Boolean> {
     Context ct;
     QuizDatabaseHelper helper;
@@ -17,6 +20,8 @@ public class QuizDatabaseWriter extends AsyncTask<Quiz, Void, Boolean> {
 
 
     public boolean writeQuiz(Quiz q) {
+        LocalDate date = LocalDate.now();
+        q.setDateCompleted(date.toString());
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(helper.COLUMN_AMOUNT_CORRECT, q.getAmountCorrect());
