@@ -4,4 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    android:background="@drawable/world"
+    android:backgroundTint="#DCFFFFFF"
+    android:backgroundTintMode="src_over"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:name="uga.edu.cs.project4quiz.StartQuizFragment"
+        android:id="@+id/fragmentContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_start_quiz">
+    </androidx.fragment.app.FragmentContainerView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package uga.edu.cs.project4quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         try {
             CountryDatabaseHelper countryHelper = new CountryDatabaseHelper(MainActivity.this);
         } catch (IOException e) {
@@ -40,8 +43,24 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @Override
+    public void onBackPressed() {
+        // transition to the new fragment
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView, StartQuizFragment.newInstance());
+        fragmentTransaction.commit();
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 
