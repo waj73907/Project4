@@ -15,32 +15,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Question exampleQuestion = new Question(MainActivity.this);
-        Log.d("QUESTION TEST", exampleQuestion.toString());
-        Random randomInt = new Random();
-        Quiz q = new Quiz(0, 5, "03-29-2023");
-        CountryDatabaseHelper countryHelper = new CountryDatabaseHelper(MainActivity.this);
-        try {
-            countryHelper.copyDataBase(MainActivity.this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        QuestionsHolder qh = new QuestionsHolder(MainActivity.this);
+        qh.generateQuestions();
+        Log.d("TEST", String.valueOf(qh.QuestionList.size()));
+        for (int i = 0; i < qh.QuestionList.size(); i++) {
+            Log.d("Question Holder Test", qh.QuestionList.get(i).toString());
         }
-        CountryDatabaseReader countryReader = new CountryDatabaseReader(MainActivity.this);
-        Toast.makeText(MainActivity.this, countryReader.readAllCountries().get(randomInt.nextInt(196)).getCountryName(), Toast.LENGTH_LONG).show();
-        try {
-            ArrayList<Country> countryList = countryReader.execute().get();
-        } catch (Exception e) {
-            Log.d("Error", e.getMessage());
-        }
-        QuizDatabaseHelper db = new QuizDatabaseHelper(MainActivity.this);
-        QuizDatabaseWriter writer = new QuizDatabaseWriter(MainActivity.this);
-        writer.execute(q);
-        QuizDatabaseReader reader = new QuizDatabaseReader(MainActivity.this);
-        try {
-            ArrayList<Quiz> quizList = reader.execute().get();
-        } catch (Exception e ) {
-            Log.d("ERROR READING LIST: ", e.getMessage());
-        }
+
 
     }
 
