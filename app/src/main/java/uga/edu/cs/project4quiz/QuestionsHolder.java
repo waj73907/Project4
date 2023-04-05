@@ -15,7 +15,7 @@ public class QuestionsHolder {
     }
     public void generateQuestions() {
         Question q;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             q = new Question(this.context);
             QuestionList.add(q);
         }
