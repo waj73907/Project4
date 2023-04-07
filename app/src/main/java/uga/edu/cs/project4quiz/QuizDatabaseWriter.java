@@ -8,7 +8,10 @@ import android.os.AsyncTask;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.time.LocalDate;
 /*
-
+This class represents the object that will write a quiz to the quiz database.
+In order to write a quiz to the database, simply create a new QuizDatabaseWriter instance and
+call it's execute function with a quiz or list of quizzes as a parameter. This will write the
+given quiz asynchronously.
  */
 public class QuizDatabaseWriter extends AsyncTask<Quiz, Void, Boolean> {
     Context ct;
