@@ -73,47 +73,4 @@ public class QuizQuestionFragment extends Fragment {
         if (questionNum == 5)
             swipeInstruction.setText("Swipe left to see quiz results!");
     }
-
-    public boolean onRadioButtonClicked(View view, Question question) {
-        // If a radio button is clicked, we need to know which is clicked and if its text
-        // matches the correct answer. If so, have a boolean list it as correct.
-        // After the last question, have a boolean array with all the booleans from each question
-        // and loop it to see how many correct answers there are.
-        boolean checked = ((RadioButton) view).isChecked();
-        boolean isCorrect = false;
-
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radioButton:
-                if (checked)
-                    if (question.correctContinent.equals(R.id.radioButton))
-                        isCorrect = true;
-                    // Pirates are the best
-                    break;
-            case R.id.radioButton2:
-                if (checked)
-                    if (question.correctContinent.equals(R.id.radioButton2))
-                        isCorrect = true;
-                    // Ninjas rule
-                    break;
-            case R.id.radioButton3:
-                if (checked)
-                    if (question.correctContinent.equals(R.id.radioButton3))
-                        isCorrect = true;
-                    // Ninjas rule
-                    break;
-        }
-
-        return checked;
-    }
-
-    public int getNumCorrectAnswers(boolean[] values) {
-        int counter = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] == true)
-                counter++;
-        }
-
-        return counter;
-    }
 }

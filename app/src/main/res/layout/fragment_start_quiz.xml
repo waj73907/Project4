@@ -28,7 +28,10 @@
         android:layout_marginRight="50dp"
         android:fontFamily="serif"
         android:gravity="center"
-        android:text="In this project, you will be answering 6 questions to test your knowledge of different countries and continents about where they are geographically. Click the button below to begin."
+        android:text="In this project, you will be answering 6 questions to test your knowledge
+of different countries and continents about where they are geographically.
+Do not go back to a previous question after you have swiped to the next question.
+Click the button below to begin."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

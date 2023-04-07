@@ -6,14 +6,23 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class ViewPagerFragment extends Fragment {
+    ViewPager2 pager;
+    ViewPagerAdapter adapter;
+    View view;
+    int pos; // current page
+
+    public ViewPagerFragment() {}
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_past_quiz, container, false);
         return (ViewGroup) inflater.inflate(
                 R.layout.fragment_view_pager, container, false);
     }
@@ -21,12 +30,29 @@ public class ViewPagerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewPager2 pager = view.findViewById(R.id.viewPager);
-        ViewPagerAdapter avpAdapter = new ViewPagerAdapter(
+        pager = view.findViewById(R.id.viewPager);
+
+        adapter = new ViewPagerAdapter(
                 getChildFragmentManager(), getLifecycle());
         pager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        pager.setAdapter(avpAdapter);
+        pager.setAdapter(adapter);
 
+        if (pager.getCurrentItem() >= 5) {
+            Log.d("ViewPagerFragment:", "You are on the 7th page");
+            ((MainActivity) getActivity()).addToDatabase(view);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pos = pager.getCurrentItem();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        pager.setCurrentItem(pos);
     }
 
 }

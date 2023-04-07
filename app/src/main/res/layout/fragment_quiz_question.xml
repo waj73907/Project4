@@ -51,7 +51,7 @@
 
         <RadioButton
             android:id="@+id/radioButton"
-            android:onClick="onRadioButtonClicked"
+            android:onClick="onClicked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
@@ -59,7 +59,7 @@
 
         <RadioButton
             android:id="@+id/radioButton2"
-            android:onClick="onRadioButtonClicked"
+            android:onClick="onClicked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
@@ -67,7 +67,7 @@
 
         <RadioButton
             android:id="@+id/radioButton3"
-            android:onClick="onRadioButtonClicked"
+            android:onClick="onClicked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"

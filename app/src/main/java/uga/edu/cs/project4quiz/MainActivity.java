@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -38,21 +40,21 @@ import java.util.concurrent.ExecutionException;
     Still left to implement:
     1. DONE Get rid of button on quiz questions screen. Possibly try to add it back on last question.
     If not able to add it back, find a way to end the quiz with user interaction.
-    2. Update amount answered every time a user clicks a radio button. Be able to access that
+    2. DONE Update amount answered every time a user clicks a radio button. Be able to access that
     number when the quiz ends.
     3. DONE Only make a new set of quiz questions when there is no quiz in progress (upon app launch and completed quiz).
     4. DONE Find a way to use the same Quiz object for all the classes.
-    5. Save and restore: if the user clicks back or pauses the app, save all answer choices
+    5. DONE Save and restore: if the user clicks back or pauses the app, save all answer choices
     and pick up on the page they left.
     6. DONE Every time a quiz is finished (the calculate results button is clicked),
     the Quiz toString() method is called in the Past Quiz section and recorded in the database.
     7. DONE The Past Quizzes section is the only part of the quiz that keeps information always. It should connect
     to the database of previous quizzes.
-    8. Implement amount answered correctly after figuring out how to view the results.
+    8. DONE Implement amount answered correctly after figuring out how to view the results.
     10. Make the answer choices random. As of now, the first choice is always the correct one. You only have to
     make sure the correct answer is in a randomized position. Fill in the other incorrect choices wherever.
-    11. Store Quiz object as a static variable and get/set methods to access with other classes.
-    12. Implement onPause and onResume to restore data if the app is paused (go back to the page they were on).
+    11. DONE Store Quiz object as a static variable and get/set methods to access with other classes.
+    12. DONE Make sure the quiz only adds to the database after the quiz results fragment is shown.
 
  */
 public class MainActivity extends AppCompatActivity {
@@ -91,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         q = new Quiz(0, 0, "");
         writer = new QuizDatabaseWriter(this);
-        writer.execute(q);
         reader = new QuizDatabaseReader(this);
 
         /*
@@ -117,20 +118,47 @@ public class MainActivity extends AppCompatActivity {
         i++;
     }
 
-    public int correctAnswers() {
-        // If a radio button is clicked, we need to know which is clicked and if its text
-        // matches the correct answer. If so, have a boolean list it as correct.
-        // After the last question, have a boolean array with all the booleans from each question
-        // and loop it to see how many correct answers there are.
+    // Used for PastQuizzes screen when trying to add quiz to database
+    public ArrayList<Quiz> getAllQuizzes() {
+        ArrayList<Quiz> quizzes = reader.readAllQuizzes();
+        return quizzes;
+    }
+
+    public void onClicked(View view) {
+        String strMain = qh.AnswerList.get(i-1);
+        String[] arrSplit = strMain.split(",");
+        if (((RadioButton)view).getText().equals(arrSplit[0])) {
+            Log.d("onClicked Called:", "Is correct");
+            amountCorrect++;
+        }
+        else {
+            Log.d("onClicked Called:", "Not correct");
+            Log.d("Value:", "" + ((RadioButton)view).getText());
+            Log.d("Correct:", "" + arrSplit[0]);
+        }
+
+    }
+
+    public int getCorrectAmount() {
+        q.setAmountCorrect(amountCorrect); // updates correct amount to quiz database
         return amountCorrect;
     }
 
-    // Used for PastQuizzes screen when trying to add quiz to database
-    public ArrayList<Quiz> getAllQuizzes() {
-        writer.writeQuiz(q);
-        ArrayList<Quiz> quizzes = reader.readAllQuizzes();
+    public void addToDatabase(View view) {
+        LinearLayout layout;
+        layout = view.findViewById(R.id.linear);
 
-        return quizzes;
+        ArrayList<Quiz> quizzes = getAllQuizzes();
+        for (int i = 0; i < quizzes.size(); i++) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            textView.setText(quizzes.get(i).toString());
+            layout.addView(textView);
+        }
+    }
+
+    public void writeToDatabase() {
+        writer.writeQuiz(q); // adds current quiz to this list
     }
 
     @Override
