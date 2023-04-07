@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 public class ViewPagerFragment extends Fragment {
     ViewPager2 pager;
     ViewPagerAdapter adapter;
-    View view;
     int pos; // current page
 
     public ViewPagerFragment() {}
@@ -22,7 +21,6 @@ public class ViewPagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_past_quiz, container, false);
         return (ViewGroup) inflater.inflate(
                 R.layout.fragment_view_pager, container, false);
     }
@@ -43,6 +41,7 @@ public class ViewPagerFragment extends Fragment {
         }
     }
 
+    // Saving/restoring data methods
     @Override
     public void onPause() {
         super.onPause();
