@@ -9,7 +9,7 @@ This class is a representation of the container for all six of the questions for
 An instance of this class contains an ArrayList of all the questions.
 The only, but most important, method of this class is generateQuestions method which
 fills the QuestionList instance variable with valid questions ready to be displayed.
- */
+
 public class QuestionsHolder {
     ArrayList<Question> QuestionList = new ArrayList<>();
 
@@ -27,3 +27,5 @@ public class QuestionsHolder {
         }
     }
 }
+
+ */

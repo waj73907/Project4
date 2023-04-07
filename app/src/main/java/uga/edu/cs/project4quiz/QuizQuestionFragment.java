@@ -14,9 +14,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class QuizQuestionFragment extends Fragment {
     private TextView questionNumber;
     private TextView countryQuestion;
+    private TextView swipeInstruction;
     private Button nextQuestion;
     private RadioGroup radio;
     private int counter = 1;
@@ -57,6 +60,7 @@ public class QuizQuestionFragment extends Fragment {
 
         questionNumber = view.findViewById(R.id.textView7);
         countryQuestion = view.findViewById(R.id.textView4);
+        swipeInstruction = view.findViewById(R.id.textView3);
         radio = view.findViewById(R.id.radioGroup);
 
         Question question = new Question(getContext());
@@ -73,6 +77,12 @@ public class QuizQuestionFragment extends Fragment {
         for (int oCounter=0; oCounter < radio.getChildCount(); oCounter++) {
             ((RadioButton) radio.getChildAt(oCounter)).setText(arrSplit[oCounter]);
         }
+
+        // Tells the user how to go to the next question
+        if (questionNum != 5)
+            swipeInstruction.setText("Swipe left to proceed to Question " + (questionNum+2));
+        else
+            swipeInstruction.setText("Click button below to see quiz results!");
 
         if (questionNum == 5) { // last question fragment
 

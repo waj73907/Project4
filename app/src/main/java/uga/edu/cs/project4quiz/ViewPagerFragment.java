@@ -3,6 +3,7 @@ package uga.edu.cs.project4quiz;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -25,5 +26,7 @@ public class ViewPagerFragment extends Fragment {
                 getChildFragmentManager(), getLifecycle());
         pager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         pager.setAdapter(avpAdapter);
+
     }
+
 }

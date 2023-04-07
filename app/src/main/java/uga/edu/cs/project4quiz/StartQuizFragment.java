@@ -39,13 +39,15 @@ public class StartQuizFragment extends Fragment {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+/*
         QuestionsHolder qh = new QuestionsHolder(this.getContext());
         qh.generateQuestions();
         Log.d("TEST", String.valueOf(qh.QuestionList.size()));
         for (int i = 0; i < qh.QuestionList.size(); i++) {
             Log.d("Question Holder Test", qh.QuestionList.get(i).toString());
         }
+
+ */
 
         Quiz q = new Quiz(0, 5, "");
         QuizDatabaseWriter writer = new QuizDatabaseWriter(this.getContext());
