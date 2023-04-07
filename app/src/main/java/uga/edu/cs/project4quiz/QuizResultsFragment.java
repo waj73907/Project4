@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class QuizResultsFragment extends Fragment {
-    private Button returnHome;
 
     public QuizResultsFragment() {
         // Required empty public constructor
@@ -32,26 +31,5 @@ public class QuizResultsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        returnHome = view.findViewById(R.id.button4);
-
-        returnHome.setOnClickListener( new HomeButtonClickListener() );
-    }
-
-    private class HomeButtonClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            // create the new fragment
-            StartQuizFragment startQuizFragment = new StartQuizFragment();
-
-            // transition to the new fragment
-            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainerView, startQuizFragment);
-
-            // add it to the back stack to enable the back button
-            fragmentTransaction.addToBackStack("start quiz fragment");
-
-            // commit the transaction, i.e. make the changes
-            fragmentTransaction.commit();
-        }
     }
 }

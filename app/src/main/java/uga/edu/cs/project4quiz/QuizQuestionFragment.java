@@ -20,10 +20,10 @@ public class QuizQuestionFragment extends Fragment {
     private TextView questionNumber;
     private TextView countryQuestion;
     private TextView swipeInstruction;
-    private Button nextQuestion;
     private RadioGroup radio;
     private int counter = 1;
     private int questionNum; // displays question number every time a new fragment is shown
+    public boolean[] correctAnswers = new boolean[5];
 
     public QuizQuestionFragment() {
         // Required empty public constructor
@@ -63,58 +63,57 @@ public class QuizQuestionFragment extends Fragment {
         swipeInstruction = view.findViewById(R.id.textView3);
         radio = view.findViewById(R.id.radioGroup);
 
-        Question question = new Question(getContext());
-
         // Sets the question number
         questionNumber.setText("Question " + (questionNum+1) + "/6");
 
-        // Sets the question for each fragment
-        countryQuestion.setText(question.questionToString());
-
-        // Sets the answers for each fragment
-        String strMain = question.answersToString();
-        String[] arrSplit = strMain.split(",");
-        for (int oCounter=0; oCounter < radio.getChildCount(); oCounter++) {
-            ((RadioButton) radio.getChildAt(oCounter)).setText(arrSplit[oCounter]);
-        }
+        // Sets the question and answers for each fragment
+        ((MainActivity) getActivity()).setQuestions(countryQuestion, radio);
 
         // Tells the user how to go to the next question
-        if (questionNum != 5)
-            swipeInstruction.setText("Swipe left to proceed to Question " + (questionNum+2));
-        else
-            swipeInstruction.setText("Click button below to see quiz results!");
-
-        if (questionNum == 5) { // last question fragment
-
-        }
-//        nextQuestion.setOnClickListener( new NextQuestionButtonClickListener() );
+        if (questionNum == 5)
+            swipeInstruction.setText("Swipe left to see quiz results!");
     }
 
-    private class NextQuestionButtonClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            counter++;
+    public boolean onRadioButtonClicked(View view, Question question) {
+        // If a radio button is clicked, we need to know which is clicked and if its text
+        // matches the correct answer. If so, have a boolean list it as correct.
+        // After the last question, have a boolean array with all the booleans from each question
+        // and loop it to see how many correct answers there are.
+        boolean checked = ((RadioButton) view).isChecked();
+        boolean isCorrect = false;
 
-            if (counter <= 6) {
-                questionNumber.setText("Question " + counter);
-            }
-            if (counter == 6) {
-                nextQuestion.setText("Calculate Results");
-            }
-            if (counter > 6) {
-                // create a new fragment to go to the quiz results screen
-                QuizResultsFragment quizResultsFragment = new QuizResultsFragment();
-
-                // transition to the new fragment
-                FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerView, quizResultsFragment);
-
-                // add it to the back stack to enable the back button
-                fragmentTransaction.addToBackStack("start quiz fragment");
-
-                // commit the transaction, i.e. make the changes
-                fragmentTransaction.commit();
-            }
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioButton:
+                if (checked)
+                    if (question.correctContinent.equals(R.id.radioButton))
+                        isCorrect = true;
+                    // Pirates are the best
+                    break;
+            case R.id.radioButton2:
+                if (checked)
+                    if (question.correctContinent.equals(R.id.radioButton2))
+                        isCorrect = true;
+                    // Ninjas rule
+                    break;
+            case R.id.radioButton3:
+                if (checked)
+                    if (question.correctContinent.equals(R.id.radioButton3))
+                        isCorrect = true;
+                    // Ninjas rule
+                    break;
         }
+
+        return checked;
+    }
+
+    public int getNumCorrectAnswers(boolean[] values) {
+        int counter = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] == true)
+                counter++;
+        }
+
+        return counter;
     }
 }

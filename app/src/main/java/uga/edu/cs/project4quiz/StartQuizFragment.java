@@ -34,35 +34,6 @@ public class StartQuizFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            CountryDatabaseHelper countryHelper = new CountryDatabaseHelper(this.getContext());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-/*
-        QuestionsHolder qh = new QuestionsHolder(this.getContext());
-        qh.generateQuestions();
-        Log.d("TEST", String.valueOf(qh.QuestionList.size()));
-        for (int i = 0; i < qh.QuestionList.size(); i++) {
-            Log.d("Question Holder Test", qh.QuestionList.get(i).toString());
-        }
-
- */
-
-        Quiz q = new Quiz(0, 5, "");
-        QuizDatabaseWriter writer = new QuizDatabaseWriter(this.getContext());
-        writer.execute(q);
-        QuizDatabaseReader reader = new QuizDatabaseReader(this.getContext());
-        /*
-        try {
-            Toast.makeText(this.getContext(), reader.execute().get().toString(),Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-         */
     }
 
     @Override

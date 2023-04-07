@@ -14,11 +14,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public Fragment createFragment(int position) {
-        return QuizQuestionFragment.newInstance(position);
+        if (position == 6)
+            return QuizResultsFragment.newInstance();
+        else
+            return QuizQuestionFragment.newInstance(position);
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 7;
     }
 }

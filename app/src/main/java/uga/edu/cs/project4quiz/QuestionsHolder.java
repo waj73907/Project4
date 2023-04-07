@@ -10,9 +10,10 @@ An instance of this class contains an ArrayList of all the questions.
 The only, but most important, method of this class is generateQuestions method which
 fills the QuestionList instance variable with valid questions ready to be displayed.
 
+ */
 public class QuestionsHolder {
-    ArrayList<Question> QuestionList = new ArrayList<>();
-
+    ArrayList<String> QuestionList = new ArrayList<>();
+    ArrayList<String> AnswerList = new ArrayList<>();
     Context context;
 
 
@@ -23,9 +24,10 @@ public class QuestionsHolder {
         Question q;
         for (int i = 0; i < 6; i++) {
             q = new Question(this.context);
-            QuestionList.add(q);
+            QuestionList.add(q.questionToString());
+            AnswerList.add(q.answersToString());
         }
     }
 }
 
- */
+

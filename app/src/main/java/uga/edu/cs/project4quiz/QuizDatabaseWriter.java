@@ -23,7 +23,10 @@ public class QuizDatabaseWriter extends AsyncTask<Quiz, Void, Boolean> {
 
 
     public boolean writeQuiz(Quiz q) {
-        LocalDate date = LocalDate.now();
+        LocalDate date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = LocalDate.now();
+        }
         q.setDateCompleted(date.toString());
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();

@@ -7,19 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class PastQuizFragment extends Fragment {
-
+    LinearLayout layout;
     public PastQuizFragment() {
         // Required empty public constructor
-    }
-
-    public static PastQuizFragment newInstance(String param1, String param2) {
-        PastQuizFragment fragment = new PastQuizFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -30,7 +27,18 @@ public class PastQuizFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_past_quiz, container, false);
+        View view = inflater.inflate(R.layout.fragment_past_quiz, container, false);
+
+        layout = view.findViewById(R.id.linear);
+
+        ArrayList<Quiz> quizzes = ((MainActivity) getActivity()).getAllQuizzes();
+        for (int i = 0; i < quizzes.size(); i++) {
+            TextView textView = new TextView(this.getContext());
+            textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            textView.setText(quizzes.get(i).toString());
+            layout.addView(textView);
+        }
+
+        return view;
     }
 }
