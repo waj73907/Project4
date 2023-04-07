@@ -25,9 +25,16 @@ public class Question {
 
     Context context;
     CountryDatabaseReader countryReader;
+
     @Override
     public String toString() {
-        return "What is the continent of " + this.questionCountry.getCountryName() + "? " + this.correctContinent + " " + this.incorrectContinents.get(0) + " " + this.incorrectContinents.get(1);
+        return "What is the continent of " + this.questionCountry.getCountryName() + "? " + this.correctContinent + "," + this.incorrectContinents.get(0) + "," + this.incorrectContinents.get(1);
+    }
+    public String questionToString() {
+        return "What is the continent of " + this.questionCountry.getCountryName() + "? ";
+    }
+    public String answersToString() {
+        return this.correctContinent + "," + this.incorrectContinents.get(0) + "," + this.incorrectContinents.get(1);
     }
     /*
     This constructor takes in a context and fills the continents ArrayList

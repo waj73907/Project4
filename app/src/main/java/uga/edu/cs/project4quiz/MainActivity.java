@@ -12,37 +12,30 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+/*
+    How the program works:
+
+    The program starts with the StartQuizFragment showing the splash page, where you
+    have 2 options: start quiz or view past quizzes.
+
+    If you select the View Past Quizzes button, it goes to the PastQuizFragment
+    where it shows results from past quizzes.
+
+    If you select the Start Quiz button, it goes to the QuizQuestionFragment, which is
+    a fragment that holds two fragments (CountryNameFragment and AnswerChoiceFragment).
+    Every time you proceed to the next question, it provides a different country and
+    different answer choices by accessing those two fragments.
+
+    Question 6 is the last question, and after clicking Calculate Results button it will
+    go to QuizResultsFragment, which shows how many you got right. It then stores your grade
+    in the PastQuizFragment section.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        try {
-            CountryDatabaseHelper countryHelper = new CountryDatabaseHelper(MainActivity.this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        QuestionsHolder qh = new QuestionsHolder(MainActivity.this);
-        qh.generateQuestions();
-        Log.d("TEST", String.valueOf(qh.QuestionList.size()));
-        for (int i = 0; i < qh.QuestionList.size(); i++) {
-            Log.d("Question Holder Test", qh.QuestionList.get(i).toString());
-        }
-
-        Quiz q = new Quiz(0, 5, "");
-        QuizDatabaseWriter writer = new QuizDatabaseWriter(MainActivity.this);
-        writer.execute(q);
-        QuizDatabaseReader reader = new QuizDatabaseReader(MainActivity.this);
-        try {
-            Toast.makeText(MainActivity.this, reader.execute().get().toString(),Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
